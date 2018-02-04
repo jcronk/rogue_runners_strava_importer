@@ -7,7 +7,7 @@ module RogueRunners
 
     class Accessor
       ROGUE_WORKBOOK = 'Strava Rogue Miles'
-      COLUMN_NAMES = %w(Name Date Miles ActivityID)
+      COLUMN_NAMES = %w(Name Sex Date Miles ActivityID)
       ACTIVITY_ID_COL = 4
 
       def initialize(client_secret)

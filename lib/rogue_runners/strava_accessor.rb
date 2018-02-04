@@ -11,7 +11,7 @@ module RogueRunners
         activity['type'] == 'Run'
       end
       CURRENT_MONTH_FILTER = Proc.new do |row|
-        row[1].month == Date.today.month
+        row[2].month == Date.today.month
       end
 
       def initialize(token)
@@ -23,7 +23,7 @@ module RogueRunners
       def transform_athlete(athlete)
         first_last = athlete.values_at('firstname', 'lastname').map(&:to_s)
         return athlete['username'] if first_last.join('').empty?
-        first_last.join(' ')
+        [ first_last.join(' '), athlete['sex'] ]
       end
 
       def transform_activity(activity)
@@ -32,7 +32,7 @@ module RogueRunners
           ActivityDate.new(activity['start_date']),
           distance_to_miles(activity['distance']),
           activity['id']
-        ]
+        ].flatten
       end
 
       def distance_to_miles(distance)
