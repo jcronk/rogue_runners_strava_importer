@@ -30,11 +30,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_development_dependency 'awesome_print'
   spec.add_development_dependency 'bundler', '~> 1.16'
+  spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency "awesome_print"
-  spec.add_development_dependency "byebug"
   spec.add_dependency 'google_drive', '2.1.8'
   spec.add_dependency 'strava-api-v3', '0.7.0'
 end
