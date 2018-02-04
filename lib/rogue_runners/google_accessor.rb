@@ -8,7 +8,7 @@ module RogueRunners
     class Accessor
       ROGUE_WORKBOOK = 'Strava Rogue Miles'
       COLUMN_NAMES = %w[Name Sex Date Miles ActivityID].freeze
-      ACTIVITY_ID_COL = 4
+      ACTIVITY_ID_COL = 5
 
       def initialize(client_secret)
         @session = GoogleDrive::Session.from_config(client_secret)
