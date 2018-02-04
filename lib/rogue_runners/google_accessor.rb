@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 require 'google_drive'
 require 'set'
 
 module RogueRunners
-
   module GoogleWorksheets
-
     class Accessor
       ROGUE_WORKBOOK = 'Strava Rogue Miles'
-      COLUMN_NAMES = %w(Name Sex Date Miles ActivityID)
+      COLUMN_NAMES = %w[Name Sex Date Miles ActivityID].freeze
       ACTIVITY_ID_COL = 4
 
       def initialize(client_secret)
@@ -18,7 +18,7 @@ module RogueRunners
       end
 
       def worksheet_name
-        @sheet_name ||= "#{Date.today.strftime("%B")} #{Date.today.year}"
+        @sheet_name ||= "#{Date.today.strftime('%B')} #{Date.today.year}"
       end
 
       def get_current_sheet
@@ -37,7 +37,7 @@ module RogueRunners
       def get_activity_ids
         @row = 2
         activity_ids = Set.new
-        until @worksheet[@row, 1].empty? do
+        until @worksheet[@row, 1].empty?
           activity_ids << @worksheet[@row, ACTIVITY_ID_COL].to_s
           @row += 1
         end
@@ -45,7 +45,7 @@ module RogueRunners
       end
 
       def add_new_activities(run_summary_list)
-        runs_to_be_added = run_summary_list.reject{|run| @ids.include?(run.last.to_s)}
+        runs_to_be_added = run_summary_list.reject { |run| @ids.include?(run.last.to_s) }
         puts "#{runs_to_be_added.count} runs to add, starting with row #{@row}"
         runs_to_be_added.each do |run|
           run.each_with_index do |value, ix|
@@ -56,9 +56,6 @@ module RogueRunners
         end
         @worksheet.save
       end
-
     end
-
   end
-
 end

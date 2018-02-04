@@ -1,11 +1,11 @@
-require "rogue_runners/version"
+# frozen_string_literal: true
+
+require 'rogue_runners/version'
 require 'rogue_runners/strava_accessor'
 require 'rogue_runners/google_accessor'
 
 module RogueRunners
-
   class RunCollector
-
     def initialize(strava_token, google_client_secret)
       @strava_accessor = Strava::Accessor.new(strava_token)
       @google_accessor = GoogleWorksheets::Accessor.new(google_client_secret)
@@ -15,7 +15,5 @@ module RogueRunners
       run_summary_list = @strava_accessor.current_month_runs_summary
       @google_accessor.add_new_activities(run_summary_list)
     end
-
   end
-
 end

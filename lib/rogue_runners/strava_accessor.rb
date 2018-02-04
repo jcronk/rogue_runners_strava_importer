@@ -1,16 +1,16 @@
+# frozen_string_literal: true
+
 require 'strava/api/v3'
 
 module RogueRunners
-
   module Strava
-
     class Accessor
-      CLUB_ID = 328489
+      CLUB_ID = 328_489
       METERS_PER_MILE = 1609.34
-      RUN_FILTER = Proc.new do |activity|
+      RUN_FILTER = proc do |activity|
         activity['type'] == 'Run'
       end
-      CURRENT_MONTH_FILTER = Proc.new do |row|
+      CURRENT_MONTH_FILTER = proc do |row|
         row[2].month == Date.today.month
       end
 
@@ -23,7 +23,7 @@ module RogueRunners
       def transform_athlete(athlete)
         first_last = athlete.values_at('firstname', 'lastname').map(&:to_s)
         return athlete['username'] if first_last.join('').empty?
-        [ first_last.join(' '), athlete['sex'] ]
+        [first_last.join(' '), athlete['sex']]
       end
 
       def transform_activity(activity)
@@ -36,7 +36,7 @@ module RogueRunners
       end
 
       def distance_to_miles(distance)
-        "%0.2f" % (distance / METERS_PER_MILE)
+        format('%0.2f', (distance / METERS_PER_MILE))
       end
 
       def get_activity_list
@@ -53,7 +53,7 @@ module RogueRunners
       end
 
       def transform_runs
-        @runs_summary =  @runs.map(&method(:transform_activity))
+        @runs_summary = @runs.map(&method(:transform_activity))
       end
 
       def current_month_runs_summary
@@ -62,25 +62,20 @@ module RogueRunners
         transform_runs
         @runs_summary.select(&CURRENT_MONTH_FILTER)
       end
-
     end
 
     class ActivityDate
-
       def initialize(date)
         @date = Date.parse(date)
       end
 
       def to_s
-        @date.strftime("%Y-%m-%d")
+        @date.strftime('%Y-%m-%d')
       end
 
       def method_missing(method_name, *args)
         @date.send(method_name, *args)
       end
-
     end
-
   end
-
 end
