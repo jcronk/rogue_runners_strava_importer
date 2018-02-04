@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'rogue_runners'
+
+strava_key, google_key = ARGV
+
+RogueRunners::RunCollector.new(strava_key, google_key).update_miles
