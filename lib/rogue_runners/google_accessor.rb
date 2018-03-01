@@ -26,7 +26,7 @@ module RogueRunners
       end
 
       def add_new_worksheet
-        ws = @spreadsheet.add_worksheet(worksheet_name)
+        ws = @workbook.add_worksheet(worksheet_name)
         COLUMN_NAMES.each_with_index do |colname, ix|
           ws[1, ix + 1] = colname
         end
